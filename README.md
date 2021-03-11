@@ -1,5 +1,5 @@
 # Analizador_Sintactico
-##Instalacion
+## Instalacion
 pip install flask
 ### Ejecuta el archivo
 #### Ejecutar el proyecto localmente
