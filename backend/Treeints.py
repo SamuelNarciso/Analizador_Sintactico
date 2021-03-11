@@ -22,6 +22,6 @@ class TreeInt:
                 return tree
 a=TreeInt()
 d=a.CreateTree()
-print(d.PostOrder(d.root,ConvertFormat.ConvertFormat('int a;').Convert()))
+print(d.PostOrder(d.root,ConvertFormat.ConvertFormat('int a a;').Convert()))
 
 
