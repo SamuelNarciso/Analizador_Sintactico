@@ -1,0 +1,251 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+}
+
+.contenedorPadre {
+  background: #2c2c30;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.contenedorPadre header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #dbd8e3;
+  width: 100%;
+  height: 20%;
+}
+
+.contenedorPadre header h1 {
+  color: #ffc045;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.contenedorPadre header ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.contenedorPadre header ul li {
+  list-style-type: none;
+  margin: 0 1em;
+}
+
+.contenedorPadre header ul li a {
+  font-family: monospace;
+  font-size: 1.3em;
+  text-decoration: none;
+  color: #dbd8e3;
+}
+
+.contenedorPadre header ul li a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.contenedorPadre main {
+  width: 100%;
+  height: 75%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.contenedorPadre main .formulario {
+  width: 50%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  position: relative;
+}
+
+.contenedorPadre main .formulario .cajaTexto {
+  resize: none;
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+  font-size: 1.4em;
+  background: transparent;
+  color: #dbd8e3;
+  border: 3px solid #393e46;
+  border-radius: 6px;
+  outline: none;
+}
+
+.contenedorPadre main .formulario .comprobarBoton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 6px;
+  font-size: 1.2em;
+  height: 10%;
+  width: 20%;
+  border: none;
+  color: #dbd8e3;
+  cursor: pointer;
+  background: #482f7a;
+  outline: none;
+}
+
+.contenedorPadre main .formulario .comprobarBoton:hover {
+  background: #50368d;
+}
+
+.contenedorPadre main #log {
+  width: 50%;
+  height: 100%;
+  border-radius: 6px;
+  border: 2.2px solid #393e46;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 1em;
+  overflow-y: auto;
+}
+
+.contenedorPadre main #log legend {
+  margin-left: 1em;
+  font-size: 24px;
+  font-family: monospace;
+  color: #dbd8e3;
+}
+
+.contenedorPadre main #log .textLog {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+  color: #dbd8e3;
+}
+
+.contenedorPadre main #log .error {
+  margin: 2px 0;
+  font-weight: 500;
+  color: #f2f2f2;
+  background: -webkit-gradient(linear, left top, right top, from(#c03e3e), to(#c03e3e));
+  background: linear-gradient(90deg, #c03e3e, #c03e3e);
+  border-radius: 3px;
+}
+
+.contenedorPadre footer {
+  font-family: monospace;
+  font-size: 1.2em;
+  height: 8%;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.contenedorPadre footer .author {
+  color: #dbd8e3;
+}
+
+@media screen and (max-width: 1000px) {
+  .contenedorPadre main {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  .contenedorPadre main .formulario {
+    width: 90%;
+    height: 50%;
+  }
+  .contenedorPadre main .formulario .comprobarBoton {
+    height: 20%;
+  }
+  .contenedorPadre main #log {
+    width: 90%;
+    height: 50%;
+  }
+}
+
+@media screen and (max-width: 610px) {
+  .contenedorPadre header {
+    text-align: center;
+  }
+  .contenedorPadre main .formulario .comprobarBoton {
+    width: 30%;
+  }
+  .contenedorPadre footer {
+    font-size: 0.9em;
+  }
+}
+
+@media screen and (max-width: 410px) {
+  .contenedorPadre main .formulario .comprobarBoton {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 310px) {
+  .contenedorPadre header h1 {
+    font-size: 1.5em;
+  }
+  .contenedorPadre header ul {
+    font-size: .8em;
+  }
+}
+/*# sourceMappingURL=styles.css.map */
