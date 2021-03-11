@@ -4,6 +4,9 @@ class ConvertFormat:
     def Convert(self):
         aux=self.string.split(' ')
         l=[]
+        
+        if len(aux)!=2:
+            return False
         for x in list(aux[0]):
             l.append(x)
         l2=[]
@@ -13,7 +16,10 @@ class ConvertFormat:
         if len(l2)>1:
             l.append(l2)
         else:
-            l.append(l2.pop())
+            if len(l2)>0:
+                l.append(l2.pop())
+            else:
+                return False
         l.append(';')
         return l
 

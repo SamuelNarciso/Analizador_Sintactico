@@ -20,8 +20,6 @@ class TreeInt:
                 for x in alphabets:
                         tree.root=tree.insert(tree.root,x.value,x.alphabet)
                 return tree
-a=TreeInt()
-d=a.CreateTree()
-print(d.PostOrder(d.root,ConvertFormat.ConvertFormat('int a a;').Convert()))
+
 
 

@@ -27,10 +27,8 @@ class Tree:
             self.PostOrder(value.left,string)
             self.PostOrder(value.right,string)
             
-            print(value.data)
             result,string=Search.Search().search(string,value.Object)
 
-            print(string)
             if result==False:
                 return False
 

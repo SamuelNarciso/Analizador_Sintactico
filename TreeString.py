@@ -29,20 +29,3 @@ class TreeString:
 
 
 
-c=TreeString()
-d=c.CreateTree()
-a="String aa;"
-aux=a.split(' ')
-l=[]
-for x in  list(aux[0]):
-    l.append(x)
-l.append(' ')
-l2=[]
-for x in  aux[1]:
-    if x!=';':
-        l2.append(x)
-l.append(l2)
-l.append(';')
-print(d.PostOrder(d.root,l))
-
-
