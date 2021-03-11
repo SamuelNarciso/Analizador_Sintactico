@@ -1,5 +1,6 @@
 import Tree
 import alphabet
+import ConvertFormat
 class Node:
         def __init__(self,value,alphabet):
                 self.value=value
@@ -19,21 +20,8 @@ class TreeInt:
                 for x in alphabets:
                         tree.root=tree.insert(tree.root,x.value,x.alphabet)
                 return tree
-
-c=TreeInt()
-d=c.CreateTree()
-a="int aa;"
-aux=a.split(' ')
-l=[]
-for x in  list(aux[0]):
-    l.append(x)
-l.append(' ')
-l2=[]
-for x in  aux[1]:
-    if x!=';':
-        l2.append(x)
-l.append(l2)
-l.append(';')
-print(d.PostOrder(d.root,l))
+a=TreeInt()
+d=a.CreateTree()
+print(d.PostOrder(d.root,ConvertFormat.ConvertFormat('int a;').Convert()))
 
 
