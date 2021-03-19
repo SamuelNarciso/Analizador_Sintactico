@@ -2,46 +2,51 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{{url_for('static',filename='img/favicon.svg')}}" type="image/x-icon">
-    <link rel="stylesheet" href="{{url_for('static',filename='css/styles.css')}}">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="{{url_for('static' , filename='svg/favicon.svg')}}" type="image/x-icon" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="{{url_for('static' , filename='scss/styles.css')}}" />
     <title>Analizador de sintaxis basica</title>
 </head>
 
 <body>
-
     <div class="contenedorPadre">
-
         <header>
-            <h1>Verificador de sintaxis basica</h1>
-
+            <div class="boton_icono">
+                <button class="boton boton_primario" id="comprobar">
+                    Comprobar <span class="color_icono">▶</span>
+                </button>
+            </div>
+            <div class="boton_icono">
+                <button class="boton boton_secundario" id="mostrar_consola">
+                    Consola <span class="color_icono">📄</span>
+                </button>
+            </div>
         </header>
 
         <main>
-            <form action="/" method="POST" id="formularioInput" class="formulario">
-                <textarea id="textAreaInput" name="txtArea" class="cajaTexto"></textarea>
-                <button id="comprobarBoton" class="comprobarBoton" type="submit"> Comprobar </button>
-            </form>
+            <div id="formularioInput" class="formulario">
+                <!-- <textarea id="textAreaInput" class="cajaTexto"></textarea> -->
+                <div id='textAreaInput' class="cajaTexto" role="textbox" contenteditable> </div>
 
+            </div>
 
             <fieldset id="log" class="">
-                <legend>Log</legend>
 
-                <label class="textLog"> {{ texto }} </label>
-                {% for x in error %}
-                {% if x[0:2] == 'Er' %}
-                <label class="textLog error">{{ x }}</label>
-                {% endif %}
-                {% if x[0:2]=='Ca' %}
-                <label class="textLog"> {{ x }} </label>
-                {% endif %}
-                {% endfor %}
             </fieldset>
         </main>
+        <footer>
+            <!-- <p class="author"></p> -->
+            <p class="author">Lenguajes y automatas 2</p>
+            <!-- <p class="author">Grupo 3</p> -->
+        </footer>
     </div>
 
+    <script src="{{url_for('static' , filename='js/index.js')}}"></script>
 </body>
 
 </html>

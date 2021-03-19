@@ -1,6 +1,5 @@
 import Tree
 import alphabet
-import ConvertString
 #int v=10
 #int v =10
 #int v = 10
@@ -26,6 +25,19 @@ class TreeString:
                 for x in alphabets:
                         tree.root=tree.insert(tree.root,x.value,x.alphabet)
                 return tree
-
+        def TreeAssign(self):
+            alphabets=[
+                    Node(30,[';']),
+                    Node(31,['"',"'"]),
+                    Node(25,alphabet.Alphabet().GenerateLetters()),
+                    Node(26,['"',"'"]),
+                    Node(23,['=']),
+                    Node(24,[' ']),
+                    Node(1,alphabet.Alphabet().GenerateLetters())
+                    ]
+            tree=Tree.Tree()
+            for x in alphabets:
+                tree.root=tree.insert(tree.root,x.value,x.alphabet)
+            return tree
 
 

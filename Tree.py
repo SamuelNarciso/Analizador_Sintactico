@@ -3,8 +3,8 @@ class Node:
     def __init__(self,data,Object):
         self.left=None
         self.right=None
-        self.data=data
-        self.Object=Object
+        self.data=data#Number
+        self.Object=Object#Alphabet
 class Tree:
     def __init__(self):
         self.root=None
@@ -26,9 +26,7 @@ class Tree:
         else:
             self.PostOrder(value.left,string)
             self.PostOrder(value.right,string)
-            
             result,string=Search.Search().search(string,value.Object)
-
             if result==False:
                 return False
 
