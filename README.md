@@ -7,4 +7,5 @@ python3 main.py
 ##### Primera version solo creacion de variables
 https://analizadorsintactico.herokuapp.com/
 ##### Segunda version creacion de variables y asignacion de valores
+https://analizadorsintacticoasignacion.herokuapp.com/
 ![](./1.png)
