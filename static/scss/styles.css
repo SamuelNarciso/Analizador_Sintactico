@@ -170,11 +170,10 @@ body {
   border: none;
   border-radius: 8px;
   outline: none;
-  overflow-y: auto;
 }
 
 .formulario .cajaTexto .color_tipoDato {
-  color: #6cca14;
+  color: #845ec2;
 }
 
 #log {
@@ -194,7 +193,6 @@ body {
   overflow-y: auto;
   bottom: 0;
   background: #1812206e;
-  overflow-y: auto;
   -webkit-transition: all ease 1s;
   transition: all ease 1s;
 }

@@ -8,20 +8,9 @@ mostrar_consola.addEventListener('click', () => {
     textAreaInput.classList.toggle('reduce50');
 });
 
-const colorear_palabraReservada = ( {cadena} )=>{
-    console.log(cadena)
-    cadena = cadena.replaceAll("int" ,'<span class="color_tipoDato">int</span>')
-    cadena = cadena.replaceAll("String" ,'<span class="color_tipoDato">String</span>')
-    cadena = cadena.replaceAll("float" ,'<span class="color_tipoDato">float</span>')
-    cadena = cadena.replaceAll("\n" , "<br>")
-    return cadena
-}
-
 comprobar.addEventListener('click', () => {
     log.innerHTML = " ";
-    let cadena = {'cadena': textAreaInput.innerText};
-    cadena = colorear_palabraReservada(cadena)
-    textAreaInput.innerHTML = cadena
+    const cadena = {'cadena': textAreaInput.innerText};
     const jcadena = JSON.stringify(cadena)
     var url = '/';
 
@@ -41,7 +30,7 @@ comprobar.addEventListener('click', () => {
                 label.classList.add('error')
             }
             log.append(label);
-  
+
         }
     })
 })
