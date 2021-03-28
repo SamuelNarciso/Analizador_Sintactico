@@ -1,69 +1,91 @@
-import  TreeFloat
+import TreeFloat
 import Treeints
 import TreeString
-import ConvertFormat
 import Search
 import Type
-import Float
-from flask import Flask,jsonify,request,render_template
-app=Flask(__name__)
-#Trees for declare vars
-Trees=[
-        TreeFloat.TreeFloat().CreateTree(),
-        TreeString.TreeString().CreateTree(),
-        Treeints.TreeInt().CreateTree()
-        ]
-#Tree to assign a valor to a var
-AssignTree={
-        'int':Treeints.TreeInt().TreeAssign(),
-        'String':TreeString.TreeString().TreeAssign(),
-        'float':TreeFloat.TreeFloat().TreeAssign()
-        }
+import Equals
+import alphabet
+import Logic
+import CheckAssig
+import Operation
+import While
+from flask import Flask, jsonify, request, render_template
+app = Flask(__name__)
+# Trees for declare vars
+Trees = [
+    TreeFloat.TreeFloat().CreateTree(),
+    TreeString.TreeString().CreateTree(),
+    Treeints.TreeInt().CreateTree()
+]
+# Tree to assign a valor to a var
+AssignTree = {
+    'int': Treeints.TreeInt().TreeAssign(),
+    'String': TreeString.TreeString().TreeAssign(),
+    'float': TreeFloat.TreeFloat().TreeAssign()
+}
 
-#Home route of the server 
-@app.route('/', methods=['GET','POST'])
+
+def Is_there_letter(string):
+    for x in string:
+        if x in alphabet.Alphabet().GenerateLetters():
+            return True
+    return False
+# Home route of the server
+
+
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    if request.method=='POST':
-        data=request.get_json()#Get Data from JS
-        aux=data['cadena'].split('\n')
-        lista=[]
+    if request.method == 'POST':
+        data = request.get_json()  # Get Data from JS
+        aux = data['cadena'].split('\n')
+        lista = []
         for x in aux:
             for j in x.split(';'):
-                if len(j)>0:
+                if len(j) > 0:
                     lista.append(j)
-        errores=[]
-        var=[]
+        errores = []
+        var = []
+        count = 0
+        lista,errores=While.While(lista).Search_While(errores)
         for l in lista:
-            #see if the var has a value like a=10
-            if '=' in list(l):
-                temp=l.split('=')
-                if len(temp)>2:
-                    errores.append('Error systaxis '+l)
+            if '<' in l or '>' in l or '==' in l:
+                if Logic.Logic().SintaxLogic(l):
+                    # Check if they are the same typ
+                    errores = Logic.Logic().CheckSintax(l, var, errores)
                 else:
-                    #we hake to check if the var has already been in the list
-                    result,T,index=Search.Search().Search_Name(var,temp[0])
-                    if result==True:
-                        #Make de tree by the type of the data
-                        sr=ConvertFormat.ConvertFormat(l).OrdenAssign()
-                        sr.append(';')
-                        if T=='float':
-                            sr=Float.Float().Convert(sr[2],sr)
-                        if T=='String':
-                            St=sr[2]
-                            sr.insert(2,St.pop(0))
-                            sr.insert(len(sr)-1,St.pop())
-                        trunk=AssignTree[T]
-                        if trunk.PostOrder(trunk.root,sr)==None:
-                            errores.append('Cadena correcta '+l)
-                            #Change The Value of the var in de array
-                            var[index].SetValue(temp[1])
+                    errores.append('Error de la sintaxis en '+l)
+            if '=' in l and Equals.Equals(l).CheckString() == True:
+                temp = l.split('=')
+                if len(temp) < 2 or len(temp) > 2:
+                    errores.append('Error de sintaxis'+l)
+                else:
+                    # we hake to check if the var has already been in the list
+                    result, T, index = Search.Search(
+                    ).Search_Name(var, temp[0])
+                    if result == True:
+                        # Check if the value is a number or a var
+                        if Is_there_letter(temp[1]) and ('"' in l or "'" in l) == False:
+                            if '+' in temp[1] or '-' in temp[1] or '*' in temp[1] or '/' in temp[1]:
+                                errores, var = Operation.Operation(
+                                    l).Convert(var, errores)
+                            else:
+                                errores, var = CheckAssig.Check().Check_Var_Var(l, T, index, errores, var, temp)
                         else:
-                            errores.append('Error en la asignacion de valores en '+l)
+                            print('Probando')
+                            if '+' in temp[1] or '-' in temp[1] or '*' in temp[1] or '/' in temp[1]:
+                                errores, var = Operation.Operation(
+                                    l).Convert(var, errores)
+                            else:
+                                errores, var = CheckAssig.Check().Check_Var_Value(
+                                        l, AssignTree, errores, var, index, T, temp)
                     else:
-                        errores.append('Error variable no declarada '+ l)
-            else:
-                errores,var=Type.Type().types(Trees,l,errores,var)
-        return jsonify({'mensajes':errores})
+                        errores.append('Error variable no declarada ' + l)
+            if ('while' in l)==False and  l != '(' and l != ')' and l != '{' and l != '}' and ('=' in l) == False and ('<' in l or '>' in l) == False:
+                errores, var = Type.Type().types(Trees, l, errores, var)
+            count=count+1
+        return jsonify({'mensajes': errores})
     return render_template('index.html')
-if __name__=='__main__':
+
+
+if __name__ == '__main__':
     app.run(debug=True)
