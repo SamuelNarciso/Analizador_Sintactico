@@ -70,15 +70,28 @@
     }
 
     .textLog {
-        font-family: 'Courier New', Courier, monospace;
+        font-family:  monospace;
         font-size: 18px;
         color: $white;
     }
     .error {
         margin: 2px 0;
+        font-weight: 600;
+        color: #c03e3e;
+        border-radius: 3px;
+        
+    }
+    .info{
+        margin: 2px 0;
+        font-weight: 300;
+        color: #4184ffad;
+        font-style: italic;
+        border-radius: 3px;
+    }
+    .warn{
+        margin: 2px 0;
         font-weight: 500;
-        color: #f2f2f2;
-        background: linear-gradient(90deg, $rojo, #c03e3e);
+        color: #d4b814ad;
         border-radius: 3px;
     }
     transition: all ease 1s;
@@ -96,7 +109,10 @@
     &:nth-child(odd){
         border-radius: 6px;
         // background: linear-gradient(45deg #1a191b6b , transparent);
-        background: linear-gradient(45deg,  transparent , #c03e3e3d , #8a35e03d );
+        background: linear-gradient(45deg,  transparent , #c03e3e25 , #8a35e025 );
+    }
+    &:focus-within{
+        background: red;
     }
     
 }

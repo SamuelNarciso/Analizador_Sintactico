@@ -224,17 +224,30 @@ body {
 }
 
 #log .textLog {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: monospace;
   font-size: 18px;
   color: #dbd8e3;
 }
 
 #log .error {
   margin: 2px 0;
+  font-weight: 600;
+  color: #c03e3e;
+  border-radius: 3px;
+}
+
+#log .info {
+  margin: 2px 0;
+  font-weight: 300;
+  color: #4184ffad;
+  font-style: italic;
+  border-radius: 3px;
+}
+
+#log .warn {
+  margin: 2px 0;
   font-weight: 500;
-  color: #f2f2f2;
-  background: -webkit-gradient(linear, left top, right top, from(#c03e3e), to(#c03e3e));
-  background: linear-gradient(90deg, #c03e3e, #c03e3e);
+  color: #d4b814ad;
   border-radius: 3px;
 }
 
@@ -253,7 +266,11 @@ body {
 
 .lineBoxShape:nth-child(odd) {
   border-radius: 6px;
-  background: linear-gradient(45deg, transparent, #c03e3e3d, #8a35e03d);
+  background: linear-gradient(45deg, transparent, #c03e3e25, #8a35e025);
+}
+
+.lineBoxShape:focus-within {
+  background: red;
 }
 
 @media screen and (max-width: 1000px) {
