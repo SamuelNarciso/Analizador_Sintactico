@@ -9,7 +9,7 @@
     align-items: center;
     flex-wrap: wrap;
     position: relative;
-    box-shadow: rgba(51, 13, 66, 0.16) 0px 3px 6px, #321b3f3b 0px 3px 6px;
+    box-shadow: #330d4229 0px 3px 6px, hsla(278, 40%, 18%, 0.231) 0px 3px 6px;
     .cajaTexto {
         overflow: auto;
         resize: none;
@@ -19,7 +19,7 @@
         padding-left: 2em;
         font-size: 1.25em;
         background: #272529cc;
-        background: linear-gradient(45deg, #272529cc 0%, #1b152f8a 100%);
+        background: linear-gradient(45deg, #262428cc , #1b152f8a );
         color: $amarillo;
         border: none;
         border-radius: 8px;
@@ -106,13 +106,16 @@
 }
 
 .lineBoxShape {
+    &:hover{
+        filter: brightness(1.25);
+    }
     &:nth-child(odd){
         border-radius: 6px;
-        // background: linear-gradient(45deg #1a191b6b , transparent);
-        background: linear-gradient(45deg,  transparent , #c03e3e25 , #8a35e025 );
+        background: linear-gradient(45deg,  transparent , #c03e3e25 , #8a35e025   , transparent );
     }
-    &:focus-within{
-        background: red;
+    &:nth-child( even ){
+
     }
+    
     
 }
