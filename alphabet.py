@@ -70,3 +70,10 @@ class Alphabet:
 
     def AlphabetNumber(self):
         return [str(x) for x in range(0, 10)]
+    
+  
+    def AlphabetAllSimbols(self):
+        a=self.LetterWithSimbols()
+        a.append('.')
+        a.append(' ')
+        return a
