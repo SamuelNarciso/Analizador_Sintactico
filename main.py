@@ -9,6 +9,7 @@ import Logic
 import CheckAssig
 import Operation
 import While
+import write
 from flask import Flask, jsonify, request, render_template
 app = Flask(__name__)
 # Trees for declare vars
@@ -71,7 +72,6 @@ def home():
                             else:
                                 errores, var = CheckAssig.Check().Check_Var_Var(l, T, index, errores, var, temp)
                         else:
-                            print('Probando')
                             if '+' in temp[1] or '-' in temp[1] or '*' in temp[1] or '/' in temp[1]:
                                 errores, var = Operation.Operation(
                                     l).Convert(var, errores)
@@ -80,8 +80,12 @@ def home():
                                         l, AssignTree, errores, var, index, T, temp)
                     else:
                         errores.append('Error variable no declarada ' + l)
-            if ('while' in l)==False and  l != '(' and l != ')' and l != '{' and l != '}' and ('=' in l) == False and ('<' in l or '>' in l) == False:
+            if ('Write(' in l)==False and ('while' in l)==False and  l != '(' and l != ')' and l != '{' and l != '}' and ('=' in l) == False and ('<' in l or '>' in l) == False:
                 errores, var = Type.Type().types(Trees, l, errores, var)
+            
+            if 'Write(' in l:
+                errores=write.Write(l,var=var,errores=errores).CheckSintax()
+                pass
             count=count+1
         return jsonify({'mensajes': errores})
     return render_template('index.html')

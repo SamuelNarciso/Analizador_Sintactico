@@ -1,18 +1,19 @@
 
 class Write:
-    def __init__(self,string):
+    def __init__(self,string,var,errores):
         self.string=string
+        self.var=var
+        self.errores=errores
 
     def CheckSintax(self):
        data=list(self.string)
        data=self.CheckWrite(data)
        if data :
            if self.CheckParentesis(data):
-               print(data)
-               print(self.CheckContenido(data=data))
-               pass
-           pass
-       return False
+               self.errores=self.CheckContenido(data=data)
+               return self.errores
+       self.errores.append('Error en '+self.string)
+       return self. errores 
        
     def DefineSintax(self):
         sintax=[
@@ -49,12 +50,32 @@ class Write:
                     if x==data[0]:
                         num_comillas+=1
                 if num_comillas==2:
-                    return True
-
+                    self.errores.append(self.CadenaCorrecta())
+                    return self.errores
         else:
             #check if is a number 
-            pass
-        return False
+            numbers,letters=self.CheckNumbers(data)
+            if numbers>0 and letters==0:
+                self.errores.append(self.CadenaCorrecta())
+                return self.errores
+            else :
+                if numbers==0 and letters>0:
+                    #check of the vars exist
+                    return self.SearchNameVar(data=data)
+        self.errores.append('Error en '+self.string)
+        return self.errores
+
+    def SearchNameVar(self,data):
+        aux=""
+        for x in data:
+            aux+=x
+        for i in self.var:
+            if i.name==aux:
+                self.errores.append(self.CadenaCorrecta())
+                return self.errores
+        self.errores.append('Error Variable no declarada '+self.string)
+        return self.errores
+
     def CheckNumbers(self,data):
         numbers=0
         letter=0
@@ -66,11 +87,14 @@ class Write:
                 numbers+=1
         return numbers,letter
 
+    def CadenaCorrecta(self):
+        return 'Cadena correcta '+self.string
+
+
 
  
 
-Print=Write("Write(''nombre)")
-Print.CheckSintax()
+
 
 
 
