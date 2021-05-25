@@ -1,6 +1,6 @@
 # Analizador_Sintactico
-## Instalacion
-### Instalación manueal
+## Instalación
+### Instalación manual
 Instala Python 3
 Instala nodeJS y npm
 
@@ -8,18 +8,18 @@ Instala nodeJS y npm
 ```
 pip install flask
 ```
-#### Configuracion de NodeJs
+#### Configuración de NodeJs
 ```
 cd codigoIntermedio
 ```
 ```
 npm install
 ```
-### Instalacion usando docker
+### Instalación usando docker
 Instala docker y docker compose en tu sistema operativo https://www.docker.com/get-started
 
 ### Ejecuta el proyecto
-#### Ejecición manual
+#### Ejecución manual
 ```
 python3 main.py
 ```
@@ -32,11 +32,12 @@ npm start
 docker-compose up
 ```
 #### Ver el proyecto en linea
-##### Primera version solo creacion de variables
+##### Primera versión solo creación de variables
 https://analizadorsintactico.herokuapp.com/
-##### Segunda version creacion de variables y asignacion de valores
+
+##### Segunda versión creación de variables y asignación de valores
 https://analizadorsintacticoasignacion.herokuapp.com/
-##### Tercera Entrega While
+##### Tercera Versión While
 https://analizadorsintacticoas.herokuapp.com/
 
 ![](./1.png)
