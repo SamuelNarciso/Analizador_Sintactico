@@ -128,4 +128,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-intermedio/node_modules
+intermedio/node_modules/
