@@ -27,7 +27,12 @@ comprobar.addEventListener('click', () => {
             label.classList.add('textLog');
             label.innerText = error;
             if (error.charAt(0) == 'E') {
+                label.innerHTML += ' 💀'
+
                 label.classList.add('error')
+            } else {
+                label.innerHTML += ' 👍'
+
             }
             log.append(label);
 
