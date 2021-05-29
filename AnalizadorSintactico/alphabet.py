@@ -76,6 +76,4 @@ class Alphabet:
         a=self.LetterWithSimbols()
         a.append('.')
         a.append(' ')
-        a.append('"')
-        a.append("'")
         return a
