@@ -94,6 +94,7 @@ class Operation:
         else:
             #aqui hay solo variables y numeros
             for x in data:
+                print(x)
                 caracter=x
                 if (self.ConverNumber(x) or x in simbols)==False:
                     valor=self.GetValue(var,x)
@@ -101,7 +102,7 @@ class Operation:
                         caracter=valor
                         pass
                     else:
-                        return None,'Error xd la variable '+x+' No esta declarada'
+                        return None,'Error  la variable '+x+' No esta declarada'
                 cadana+=caracter
             pass
         return cadana,''
@@ -114,7 +115,7 @@ class Operation:
         return False
     def ConverNumber(self,number):
         try:
-            int(number)
+            r=eval(number)
             return True
         except Exception as e:
             return False
