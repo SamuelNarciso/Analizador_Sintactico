@@ -1,3 +1,4 @@
+let code = [];
 const textAreaInput = document.querySelector("#textAreaInput");
 const mostrar_consola = document.querySelector("#mostrar_consola");
 const log = document.querySelector("#log");
@@ -38,12 +39,108 @@ comprobar.addEventListener("click", () => {
                 }
                 log.append(label);
             }
-
         })
         .then((d) => {
-            console.log(bien);
             if (bien) {
-                CodigoP(textAreaInput.innerText);
+                let url;
+                const aux = textAreaInput.innerText.split('\n');
+                aux.forEach((element) => {
+                    console.log(element)
+                    resultado = IsOperation(element);
+                    let opc = ["", ""];
+                    if (resultado) {
+                        opc = element.split("=");
+                    }
+                    url = "http://localhost:3000/" + opc[1];
+                    fetch(url)
+                        .then((x) => x.json())
+                        .then((data) => {
+                            if (data.operacion.output != false) {
+                                const respuesta = data.operacion.output_array;
+                                respuesta.push(opc[0]);
+                                respuesta.push("=");
+                                code.push({asigna: respuesta});
+                                return true;
+                            }
+                            if (element) {
+                                string_suma = IsStringOperation(element)
+                                if (string_suma != false) {
+
+                                    code.push({asigna: string_suma})
+                                }
+                            }
+
+                            return false;
+                        })
+                        .then((r) => {
+                            if (r === false) {
+                                const resultado = IsVar(element, {
+                                    expresion: /int/,
+                                    tipo: "int",
+                                    valor: 0,
+                                });
+                                if (resultado != false) {
+                                    code.push(resultado);
+                                    return true;
+                                }
+                                return false;
+                            }
+                            return true;
+                        })
+                        .then((r) => {
+                            if (r === false) {
+                                const resultado = IsVar(element, {
+                                    expresion: /float/,
+                                    tipo: "float",
+                                    valor: 0.0,
+                                });
+                                if (resultado != false) {
+                                    code.push(resultado);
+                                    return true;
+                                }
+                                return false;
+                            }
+                            return true;
+                        })
+                        .then((r) => {
+                            if (r === false) {
+                                const resultado = IsVar(element, {
+                                    expresion: /String/,
+                                    tipo: "String",
+                                    valor: "",
+                                });
+                                if (resultado != false) {
+                                    code.push(resultado);
+                                    return true;
+                                }
+                                return false;
+                            }
+                            return true;
+                        })
+
+                        .then((r) => {
+                            if (r === false) {
+                                if ((resultado = IsWrite(element))) {
+                                    const auxcadena = element.split("Write(");
+                                    const mensaje = auxcadena[1].substring(
+                                        0,
+                                        auxcadena[1].length - 1
+                                    );
+
+                                    code.push({imprime: mensaje});
+                                    return true;
+                                }
+                            }
+                            return true;
+                        })
+                        .then((r) => {
+                            if (aux[aux.length - 1] === element) {
+
+                                console.log(JSON.stringify({codigoP: code}))
+                            }
+
+                        });
+                });
             }
         });
 });

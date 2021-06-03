@@ -1,45 +1,31 @@
-let code = [];
-function CodigoP(texto) {
-    code = [];
-    let aux = texto.split("\n");
-    aux.forEach((e) => {
-        if (e) {
-            IsVar(e, {
-                expresion: /int/,
-                tipo: "int",
-                valor: 0,
-            });
-            IsVar(e, {
-                expresion: /String/,
-                tipo: "String",
-                valor: "",
-            });
-            IsVar(e, {
-                expresion: /float/,
-                tipo: "float",
-                valor: 0.0,
-            });
-            IsWrite(e);
-            IsOperation(e);
-        }
-    });
-    console.log("CodigoP");
-    console.log(JSON.stringify({codigoP: code}));
-}
-
 function IsOperation(e) {
-    const pattern = /[+,-,*,/,]/;
-    const pattern2 = /[=]/;
+    const pattern = /[+,-,*,/,=]/;
     const validation = e.match(pattern);
     if (validation !== null) {
-        resolver(e);
-    } else if (e.match(pattern2)) {
-        const auxcadena = e.split("=");
-        auxcadena.push("=");
-        const auxasigna = {
-            asigna: auxcadena,
-        };
-        code.push(auxasigna);
+        return true;
+    }
+    return false;
+}
+function IsStringOperation(e) {
+    if (e) {
+        const pattern = /[=]/
+        if (e.match(pattern) != null) {
+            const aux = e.split('=')
+            let sumas = 0
+            for (let i in aux[1]) {
+                if (aux[1].charAt(i) == '+') {
+                    sumas++;
+                }
+            }
+            operacion = aux[1].split('+')
+            for (let i = 0; i < sumas; i++) {
+                operacion.push('+')
+            }
+            return operacion
+
+        }
+        return false
+
     }
 }
 function IsVar(e, parametros) {
@@ -62,30 +48,15 @@ function IsVar(e, parametros) {
                     valor: parametros.valor,
                 },
             };
-            code.push(auxobj);
+            return auxobj;
         }
     }
     return false;
 }
-function resolver(x) {
-    var url = "http://localhost:3000/" + x;
-
-    fetch(url)
-        .then((response) => response.json())
-        .then((data) => {
-            console.log("Respuesta");
-            console.log(data);
-        });
-}
-
 function IsWrite(e) {
     const pattern = /Write/;
     if (e.match(pattern) != null) {
-        const auxcadena = e.split("Write(");
-        const mensaje = auxcadena[1].substring(0, auxcadena[1].length - 1);
-        const auxmenseje = {
-            imprime: mensaje,
-        };
-        code.push(auxmenseje);
+        return true;
     }
+    return false;
 }

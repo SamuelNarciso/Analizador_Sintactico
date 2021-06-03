@@ -8,4 +8,5 @@ app.get('/:path?', (req, res) => {
     const data = resolverPostfija(req.params.path)
     res.json({operacion: data})
 })
+
 app.listen(3000, () => console.log('Server running on port 3000'))
