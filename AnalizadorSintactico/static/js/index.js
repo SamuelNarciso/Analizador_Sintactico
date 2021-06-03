@@ -45,13 +45,20 @@ comprobar.addEventListener("click", () => {
                 let url;
                 const aux = textAreaInput.innerText.split('\n');
                 aux.forEach((element) => {
-                    console.log(element)
                     resultado = IsOperation(element);
                     let opc = ["", ""];
                     if (resultado) {
                         opc = element.split("=");
                     }
-                    url = "http://localhost:3000/" + opc[1];
+                    let operacion = ""
+                    for (let i in opc[1]) {
+                        if (opc[1].charAt(i) === '/') {
+                            operacion += '_'
+                        } else {
+                            operacion += opc[1].charAt(i)
+                        }
+                    }
+                    url = "http://localhost:3000/" + operacion;
                     fetch(url)
                         .then((x) => x.json())
                         .then((data) => {
@@ -65,7 +72,8 @@ comprobar.addEventListener("click", () => {
                             if (element) {
                                 string_suma = IsStringOperation(element)
                                 if (string_suma != false) {
-
+                                    string_suma.push(opc[0])
+                                    string_suma.push('=')
                                     code.push({asigna: string_suma})
                                 }
                             }
