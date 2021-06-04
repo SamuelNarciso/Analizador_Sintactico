@@ -1,4 +1,5 @@
 let code = [];
+let traduccion = [];
 const textAreaInput = document.querySelector("#textAreaInput");
 const mostrar_consola = document.querySelector("#mostrar_consola");
 const consola_codigoP = document.querySelector("#consola_codigoP");
@@ -52,8 +53,8 @@ comprobar.addEventListener("click", () => {
     const cadena = {cadena: textAreaInput.innerText};
     const jcadena = JSON.stringify(cadena);
     var url = "/";
-    code = []
-
+    code = [];
+    traduccion = [];
     // insertar_codigoP(JSON.stringify(  )) //FUNCION PARA COLOCAR EL CODIGO P, DEBES ENVIAR COMO PARAMETRO TU JSON
 
     fetch(url, {
@@ -77,7 +78,7 @@ comprobar.addEventListener("click", () => {
                     bien = false;
                     label.classList.add("error");
                 } else {
-                    label.innerHTML += " 😈";
+                    label.innerHTML += "";
                 }
                 log.append(label);
             }
@@ -105,35 +106,49 @@ comprobar.addEventListener("click", () => {
                         fetch(url)
                             .then((x) => x.json())
                             .then((data) => {
-                                if (data.operacion.output != null) {
-                                    const respuesta =
-                                        data.operacion.output_array;
-                                    respuesta.push(opc[0]);
-                                    respuesta.push("=");
-                                    code.push({asigna: respuesta});
-                                }
-                                if (element) {
-                                    string_suma = IsStringOperation(element);
-                                    if (string_suma != false) {
-                                        string_suma.push(opc[0]);
-                                        string_suma.push("=");
-                                        code.push({asigna: string_suma});
+                                if (
+                                    data.operacion.output_array != null &&
+                                    opc[0] != ""
+                                ) {
+                                    let oper = data.operacion.output_array;
+                                    console.log(oper)
+                                    console.log(oper.length)
+                                    if (oper.length === 0) {
+                                        let pila = IsOperationString(element)
+                                        pila.push(opc[0])
+                                        pila.push('=')
+
+                                        //Separar por el = y ver si es una suma de string
+                                        code.push({
+                                            original: element,
+                                            traduccion: {
+                                                asigna: pila
+                                            },
+                                        });
+                                    } else {
+                                        oper.push(opc[0]);
+                                        oper.push("=");
+
+                                        code.push({
+                                            original: element,
+                                            traduccion: {asigna: oper},
+                                        });
                                     }
                                 }
-
                             })
-                            .then(() => {
 
+                            .then(() => {
                                 const resultado = IsVar(element, {
                                     expresion: /int/,
                                     tipo: "int",
                                     valor: 0,
                                 });
                                 if (resultado != false) {
-                                    code.push(resultado);
+                                    code.push({
+                                        original: element,
+                                        traduccion: resultado,
+                                    });
                                 }
-
-
                             })
                             .then(() => {
                                 const resultado = IsVar(element, {
@@ -142,9 +157,11 @@ comprobar.addEventListener("click", () => {
                                     valor: 0.0,
                                 });
                                 if (resultado != false) {
-                                    code.push(resultado);
+                                    code.push({
+                                        original: element,
+                                        traduccion: resultado,
+                                    });
                                 }
-
                             })
                             .then(() => {
                                 const resultado = IsVar(element, {
@@ -153,30 +170,46 @@ comprobar.addEventListener("click", () => {
                                     valor: "",
                                 });
                                 if (resultado != false) {
-                                    code.push(resultado);
+                                    code.push({
+                                        original: element,
+                                        traduccion: resultado,
+                                    });
                                 }
-
                             })
 
                             .then(() => {
                                 if ((resultado = IsWrite(element))) {
-                                    const auxcadena = element.split(
-                                        "Write("
-                                    );
+                                    const auxcadena = element.split("Write(");
                                     const mensaje = auxcadena[1].substring(
                                         0,
                                         auxcadena[1].length - 1
                                     );
 
-                                    code.push({imprime: mensaje});
+                                    code.push({
+                                        original: element,
+                                        traduccion: {imprime: mensaje},
+                                    });
                                 }
                             })
                             .then(() => {
                                 if (aux[aux.length - 1] === element) {
-
-                                    insertar_codigoP(JSON.stringify({codigoP: code}))
+                                    const ordenada = textAreaInput.innerText.split(
+                                        "\n"
+                                    );
+                                    ordenada.forEach((objeto) => {
+                                        code.forEach((traductor) => {
+                                            if (traductor.original === objeto) {
+                                                traduccion.push(
+                                                    traductor.traduccion
+                                                );
+                                            }
+                                        });
+                                    });
                                     console.log(
-                                        JSON.stringify({codigoP: code})
+                                        JSON.stringify({codigoP: traduccion})
+                                    );
+                                    insertar_codigoP(
+                                        JSON.stringify({codigoP: traduccion})
                                     );
                                 }
                             });

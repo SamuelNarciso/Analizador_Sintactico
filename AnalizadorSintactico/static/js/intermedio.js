@@ -6,27 +6,18 @@ function IsOperation(e) {
     }
     return false;
 }
-function IsStringOperation(e) {
-    if (e) {
-        const pattern = /[=]/
-        if (e.match(pattern) != null) {
-            const aux = e.split('=')
-            let sumas = 0
-            for (let i in aux[1]) {
-                if (aux[1].charAt(i) == '+') {
-                    sumas++;
-                }
-            }
-            operacion = aux[1].split('+')
-            for (let i = 0; i < sumas; i++) {
-                operacion.push('+')
-            }
-            return operacion
-
+function IsOperationString(element) {
+    let aux = element.split("=");
+    if (aux.length === 2) {
+        num_sumas = aux[1].match(/[+]/gi).length
+        console.log('Sumas ' + num_sumas)
+        let sin_sumas = aux[1].split("+");
+        for (let i = 0; i < num_sumas; i++) {
+            sin_sumas.push("+");
         }
-        return false
-
+        return sin_sumas;
     }
+    return false;
 }
 function IsVar(e, parametros) {
     const pattern = parametros.expresion;
