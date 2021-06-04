@@ -1,5 +1,4 @@
 .formulario {
- 
     word-wrap: break-word;
     width: 100%;
     height: 100%;
@@ -19,103 +18,111 @@
         padding-left: 2em;
         font-size: 1.25em;
         background: #272529cc;
-        background: linear-gradient(45deg, #262428cc , #1b152f8a );
+        background: linear-gradient(45deg, #262428cc, #1b152f8a);
         color: $amarillo;
         border: none;
         border-radius: 8px;
         outline: none;
-        
-        .color_tipoDato{
+        cursor: pointer;
+        .color_tipoDato {
             color: #845ec2;
         }
-     
     }
-   
-    .identador{
-        box-sizing: border-box;
+
+    .identador {
         width: 30px;
         height: 100%;
         background-color: #1a191bcc;
-        // border: 2px solid $rojo;
         overflow: hidden;
         position: absolute;
         left: 0;
-        padding-left: 4px;
-        color: #b8a6933d;
-        font-size: 1.25em;
-        padding-top: 1em;
-
     }
 }
 
-
-#log {
-    word-wrap: break-word;
+#consola_codigoP {
     width: 100%;
     height: 50%;
-    border-radius: 6px;
-    border: 2px solid #32043a67;
-    display: flex;
-    flex-direction: column;
-    padding: 1em;
     position: absolute;
-    overflow: auto;
+    display: flex;
+    flex-direction: row;
     bottom: 0;
-    background: #1812206e;
-    legend {
-        margin-left: 1em;
-        font-size: 24px;
-        font-family: monospace;
-        color: $white;
-    }
-
-    .textLog {
-        font-family:  monospace;
-        font-size: 18px;
-        color: $white;
-    }
-    .error {
-        margin: 2px 0;
-        font-weight: 600;
-        color: #c03e3e;
-        border-radius: 3px;
-        
-    }
-    .info{
-        margin: 2px 0;
-        font-weight: 300;
-        color: #4184ffad;
-        font-style: italic;
-        border-radius: 3px;
-    }
-    .warn{
-        margin: 2px 0;
-        font-weight: 500;
-        color: #d4b814ad;
-        border-radius: 3px;
-    }
     transition: all ease 1s;
+    
+    #area_codido_p{
+        word-wrap: break-word;
+        width: 50%;
+        height: 100%;
+        border-radius: 6px;
+        border: 2px solid #09043a67;
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+        overflow: auto;
+        background: #48496e6e;
+
+        .texto{
+            font-family: monospace;
+            font-size: 18px;
+            color: $white;
+        }
+
+    }
+    #log {
+        word-wrap: break-word;
+        width: 50%;
+        height: 100%;
+        border-radius: 6px;
+        border: 2px solid #32043a67;
+        display: flex;
+        flex-direction: column;
+        padding: 1em;
+        overflow: auto;
+        background: #1812206e;
+
+        .textLog {
+            font-family: monospace;
+            font-size: 18px;
+            color: $white;
+        }
+        .error {
+            margin: 2px 0;
+            font-weight: 600;
+            color: #c03e3e;
+            border-radius: 3px;
+        }
+        .info {
+            margin: 2px 0;
+            font-weight: 300;
+            color: #4184ffad;
+            font-style: italic;
+            border-radius: 3px;
+        }
+        .warn {
+            margin: 2px 0;
+            font-weight: 500;
+            color: #d4b814ad;
+            border-radius: 3px;
+        }
+       
+    }
 }
-.hideBox{
+
+.hideBox {
     transition: all ease 1s;
     transform: translateY(200%);
 }
-.reduce50{
+.reduce50 {
     transition: all ease 1s;
     height: 50%;
 }
 
 .lineBoxShape {
-    &:hover{
-        filter: brightness(1.25);
+    &:hover {
+        filter: brightness(1.75);
     }
-    &:nth-child(odd){
-        border-radius: 6px;
-        background: linear-gradient(45deg,  transparent , #c03e3e25 , #8a35e025   , transparent );
+    &:nth-child(odd) {
+        background: linear-gradient(45deg, transparent, #c03e3e25, #8a35e025, transparent);
     }
-    &:nth-child( even ){
-
+    &:nth-child(even) {
     }
-    
-    
 }
