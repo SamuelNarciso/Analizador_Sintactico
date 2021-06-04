@@ -4,39 +4,51 @@ class While:
     def __init__(self, string):
         self.string = string
     def Search_While(self,errores):
-        found = False
-        whileaux = ''
-        count = 0
-        position = []
-        errores = []
+        count=0
+        texto=[]
         for x in self.string:
-            if 'while' in x:
-                found = True
-            if found:
-                whileaux += x+';'
-                position.append(count)
-            if '}' in x:
-                found = False
-                # Get the thre parts of the while
-                w = []
-                waux=[]
-                if '(' in whileaux and ')' in whileaux:
-                    w.append(whileaux[whileaux.index(
-                        '(')+1:whileaux.index(')')])
-                if '{' in whileaux and '}' in whileaux:
-                    waux.append(whileaux[whileaux.index(
-                        '{')+1:whileaux.index('}')])
-                if len(w) < 2:
-                    errores.append('While error de sistaxis')
+            if 'while(' in  x:
+                resultado=self.Acomodar(self.Search(count))
+                if(resultado!=False):
+                    texto.append(resultado)
+                    errores.append('Cadena correcta While ')
                 else:
-                    errores.append('While  correcto')
-                del self.string[position[0]:position[-1]+1]
-                seperar=waux[0].split(';')
-                for y in seperar:
-                    if y!='':
-                        w.append(y)
-                for h in w:
-                    self.string.append(h)
-            count += 1
-        print(self.string)
-        return self.string, errores
+                    errores.append('Error While incorrecto')
+            elif (x in ['{','}'])==False:
+                texto.append(x)
+            count+=1
+        print(texto)
+        return texto, errores
+    def Acomodar(self,aux):
+        w=[]
+        codigo=[]
+
+        if '(' in aux and ')' in aux:
+             w.append(aux[aux.index('(')+1:aux.index(')')])
+        if '{' in aux and '}' in aux:
+            codigo.append(aux[aux.index('{')+1:aux.index('}')])
+        if len(codigo)>0 and len(w)>0:
+            return self.Ocomodar(w)
+
+        return False
+    def Ocomodar(self,arreglo):
+        aux=''
+        for x in arreglo:
+            if x:
+                aux+=x
+        return aux
+    def EliminarCodigo(self,matrix):
+        aux=[]
+        for x in matrix:
+            if(x):
+                aux.append(x)
+        return aux
+
+    def Search(self,count):
+        aux=''
+        for x in range(count,len(self.string)):
+                aux+=self.string[x]+';'
+                if self.string[x]=='}':
+                    break;
+        return aux
+
