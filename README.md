@@ -10,7 +10,7 @@ pip install flask
 ```
 #### Configuración de NodeJs
 ```
-cd codigoIntermedio
+cd intermedio
 ```
 ```
 npm install
@@ -21,10 +21,11 @@ Instala docker y docker compose en tu sistema operativo https://www.docker.com/g
 ### Ejecuta el proyecto
 #### Ejecución manual
 ```
+cd AnalizadorSintactico 
 python3 main.py
 ```
 ```
-cd codigoIntermedio
+cd intermedio
 npm start
 ```
 #### Ejecución con docker
