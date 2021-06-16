@@ -87,6 +87,7 @@ def home():
                 errores=write.Write(l,var=var,errores=errores).CheckSintax()
                 pass
             count=count+1
+        #aqui tengo q convertir el diccionario a json
         return jsonify({'mensajes': errores})
     return render_template('index.html')
 

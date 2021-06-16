@@ -103,13 +103,28 @@ comprobar.addEventListener("click", () => {
                         i++;
                     }
                 }
-                console.log(texto);
                 return texto;
             }
         })
         .then((texto) => {
             if (bien) {
-                Promesas(texto);
+                const cadena = {cadena: texto};
+                const jcadena = JSON.stringify(cadena);
+
+                fetch('http://localhost:3000/codigo', {
+                    method: "POST",
+                    body: jcadena,
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                }).then((resp) => resp.json())
+                    .then(respuesta => {
+                        insertar_codigoP(
+                            JSON.stringify(
+                                respuesta))
+                        console.log(respuesta)
+                    })
+                //Promesas(texto);
             }
         });
 });
@@ -185,6 +200,7 @@ function Promesas(texto) {
                     operacion += opc[1].charAt(i);
                 }
             }
+
             url = "http://localhost:3000/" + operacion;
             fetch(url)
                 .then((x) => x.json())
