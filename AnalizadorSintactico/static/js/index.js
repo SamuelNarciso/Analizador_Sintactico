@@ -1,5 +1,6 @@
 let code = [];
 let traduccion = [];
+let diccionario;
 const textAreaInput = document.querySelector("#textAreaInput");
 const mostrar_consola = document.querySelector("#mostrar_consola");
 const consola_codigoP = document.querySelector("#consola_codigoP");
@@ -55,6 +56,7 @@ comprobar.addEventListener("click", () => {
     var url = "/";
     code = [];
     traduccion = [];
+    diccionario = null;
     // insertar_codigoP(JSON.stringify(  )) //FUNCION PARA COLOCAR EL CODIGO P, DEBES ENVIAR COMO PARAMETRO TU JSON
 
     fetch(url, {
@@ -67,6 +69,8 @@ comprobar.addEventListener("click", () => {
         .then((resp) => resp.json())
         .then((data) => {
             bien = true;
+
+            diccionario = data['variables']
             for (var i in data["mensajes"]) {
                 var error = data["mensajes"][i];
 
@@ -108,7 +112,8 @@ comprobar.addEventListener("click", () => {
         })
         .then((texto) => {
             if (bien) {
-                const cadena = {cadena: texto};
+
+                const cadena = {cadena: texto, variables: diccionario};
                 const jcadena = JSON.stringify(cadena);
 
                 fetch('http://localhost:3000/codigo', {
@@ -329,3 +334,4 @@ function Promesas(texto) {
         }
     });
 }
+

@@ -82,13 +82,20 @@ def home():
                         errores.append('Error variable no declarada ' + l)
             if ('Write(' in l)==False and ('while' in l)==False and  l != '(' and l != ')' and l != '{' and l != '}' and ('=' in l) == False and ('<' in l or '>' in l) == False:
                 errores, var = Type.Type().types(Trees, l, errores, var)
-            
             if 'Write(' in l:
                 errores=write.Write(l,var=var,errores=errores).CheckSintax()
                 pass
             count=count+1
         #aqui tengo q convertir el diccionario a json
-        return jsonify({'mensajes': errores})
+        diccionario_vars={}
+        for let in var:
+            diccionario_vars[let.name]={
+                    'type':let.Type,
+                    'name':let.name,
+                    'value':let.value
+                    }
+
+        return jsonify({'mensajes': errores,'variables':diccionario_vars})
     return render_template('index.html')
 
 

@@ -22,7 +22,8 @@ app.get("/:path?", (req, res) => {
 app.post("/codigo", (request, response) => {
     code = [];
     const note = request.body;
-    Promesas(note.cadena);
+    Promesas(note.cadena, note.variables);
+    optmizar(code);
     response.json({codigoP: code});
 });
 //Funciones Para transformar a codigo es lo q estaba en el archivo intermedio.js
@@ -60,11 +61,9 @@ function IsVar(e, parametros) {
 
         if (validation !== null) {
             const auxobj = {
-
                 nombre: nombre,
                 tipo: parametros.tipo,
                 valor: parametros.valor,
-
             };
             return auxobj;
         }
@@ -145,36 +144,74 @@ function EsUnaLLave(element) {
     return false;
 }
 //Este es el metodo que convierte a codigo p
-function Promesas(texto) {
+function Promesas(texto, vars) {
     const aux = texto;
+    let while_encontrado = false;
     aux.forEach((element) => {
         if (element) {
             if (IsOperation(element)) {
-                let opc = ["", ""];
-                opc = element.split("=");
+                if (while_encontrado === false) {
+                    let opc = ["", ""];
+                    opc = element.split("=");
 
-                const resolverPostfija = require("./postfija");
-                const data = resolverPostfija(element);
-                if (data.output_array != null && opc[0] != "") {
-                    let oper = data.output_array;
-                    if (oper.length === 0) {
-                        let pila = IsOperationString(element);
-                        //Separar por el = y ver si es una suma de string
-                        code.push({asigna: pila});
-                    } else {
-                        code.push({asigna: oper});
+                    const resolverPostfija = require("./postfija");
+                    const aux_operation = element.split("=");
+                    const data = resolverPostfija(aux_operation[1], vars);
+                    if (data.outputArray != null && opc[0] != "") {
+                        let oper = data.outputArray;
+                        if (oper.length === 0) {
+                            let pila = IsOperationString(element);
+                            //Separar por el = y ver si es una suma de string
+                            code.push({asigna: pila});
+                        } else {
+                            if (data.resultado !== null) {
+                                oper = [aux_operation[0], data.resultado, "="];
+                            } else if (
+                                oper.length === 1 &&
+                                data.resultado == null
+                            ) {
+                                oper = [aux_operation[0], aux_operation[1], "="];
+                            }
+
+                            code.push({asigna: oper});
+                        }
                     }
+
+                } else {
+                    opc = element.split("=");
+
+                    const resolverPostfijaWhile = require('./while');
+                    const r = resolverPostfijaWhile(element);
+                    if (r.output_array != null && opc[0] != "") {
+                        let oper = r.output_array;
+                        if (oper.length === 0) {
+                            //Separar por el = y ver si es una suma de string
+                        } else {
+                            code.push({asigna: oper});
+                        }
+                    }
+
                 }
             } else if (SonDeclaraciones(element)) {
                 console.log("Declaracion");
             } else if (QuiereImprimir(element)) {
                 console.log("Imprimir");
             } else if (EsUnWhile(element)) {
+                while_encontrado = true;
                 console.log("While");
             } else if (EsUnaLLave(element)) {
                 console.log("Llave");
+                if (element === "}") {
+                    while_encontrado = false;
+                }
             }
         }
     });
 }
+const optmizar = (codep) => {
+    //eliminar variables que nunca se usan
+    codep.forEach((codigo) => {
+        console.log(codigo);
+    });
+};
 app.listen(3000, () => console.log("Server running on port 3000"));
