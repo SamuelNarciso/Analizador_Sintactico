@@ -60,7 +60,7 @@ module.exports = Traductor = (codigoP) => {
             codigoC += "}\n";
         }
         if (instruccion.imprime) {
-            codigoC += "textAreaInput.innerText +=" + instruccion.imprime + "\n";
+            codigoC += "textAreaInput.innerHTML +=   `<p> ${" + instruccion.imprime + "}</p>` " + '\n';
         }
     });
     codigoC += '</script></body></html>'

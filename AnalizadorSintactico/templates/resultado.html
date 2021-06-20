@@ -34,10 +34,11 @@
     <script>
     const textAreaInput = document.querySelector("#textAreaInput");
 
-   let name;
-name="Juan"; 
-let saludo;
-saludo="Hola como estas ? Juan"; 
-textAreaInput.innerText +=saludo
-textAreaInput.innerText +=name
+   let a;
+a=1; 
+while (a<10)
+{
+textAreaInput.innerHTML +=   `<p> ${a}</p>` 
+a=a+1; 
+}
 </script></body></html>
