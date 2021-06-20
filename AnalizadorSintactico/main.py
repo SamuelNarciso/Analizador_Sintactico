@@ -33,6 +33,9 @@ def Is_there_letter(string):
     return False
 # Home route of the server
 
+@app.route('/resultado')
+def resultado():
+    return render_template('resultado.html')
 
 @app.route('/', methods=['GET', 'POST'])
 def home():

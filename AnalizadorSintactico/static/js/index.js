@@ -129,7 +129,11 @@ comprobar.addEventListener("click", () => {
                             JSON.stringify(
                                 respuesta))
                         console.log(respuesta)
-                    })
+                    }).then(() => {
+                        var url = '/resultado';
+                        window.open(url, '_blank');
+                    }
+                    )
                 //Promesas(texto);
             }
         });

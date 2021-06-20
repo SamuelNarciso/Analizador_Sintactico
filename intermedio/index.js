@@ -23,9 +23,9 @@ app.post("/codigo", (request, response) => {
     code = [];
     const note = request.body;
     Promesas(note.cadena, note.variables);
-    optmizar(code);
+    //optmizar(code);
     const Traductor = require("./traductor");
-    Traductor(code)
+    Traductor(code, note.variables)
     response.json({codigoP: code});
 });
 //Funciones Para transformar a codigo es lo q estaba en el archivo intermedio.js
@@ -175,7 +175,14 @@ function Promesas(texto, vars) {
                             let pila = IsOperationString(element, vars);
                             code.push({asigna: pila});
                         } else {
-                            code.push({asigna: opc[0] + '=' + data.resultado})
+                            if (data.resultado === null) {
+
+                                code.push({asigna: element})
+                            } else {
+
+                                code.push({asigna: opc[0] + '=' + data.resultado})
+                            }
+
                         }
                     }
 
