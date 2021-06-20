@@ -35,15 +35,27 @@ function IsOperation(e) {
     }
     return false;
 }
-function IsOperationString(element) {
+function IsOperationString(element, variables) {
     let aux = element.split("=");
     if (aux.length === 2) {
-        num_sumas = aux[1].match(/[+]/gi).length;
-        let sin_sumas = aux[1].split("+");
-        for (let i = 0; i < num_sumas; i++) {
-            sin_sumas.push("+");
-        }
-        return sin_sumas;
+        //Lo que debemos hacer es ya la operacion de los string ya el resultado
+        let sumas_aux = ['"']
+        aux[1].split('+').forEach(element => {
+            if (element.charAt(0) === '"' || element.charAt(0) === "'" && element.charAt(element.length - 1) === '"' || element.charAt(element.length - 1) === "'") {
+                const data = element.substring(1, element.length - 1);
+                sumas_aux.push(data);
+            } else {
+                //Es una variable
+                let aux_valor = variables[element].value.substring(1, variables[element].value.length - 1)
+                sumas_aux.push(aux_valor)
+
+            }
+
+        });
+        sumas_aux.push('"');
+        sumas_aux.push(aux[0]);
+        sumas_aux.push('=');
+        return sumas_aux;
     }
     return false;
 }
@@ -160,7 +172,7 @@ function Promesas(texto, vars) {
                     if (data.outputArray != null && opc[0] != "") {
                         let oper = data.outputArray;
                         if (oper.length === 0) {
-                            let pila = IsOperationString(element);
+                            let pila = IsOperationString(element, vars);
                             //Separar por el = y ver si es una suma de string
                             code.push({asigna: pila});
                         } else {
@@ -185,7 +197,9 @@ function Promesas(texto, vars) {
                     if (r.output_array != null && opc[0] != "") {
                         let oper = r.output_array;
                         if (oper.length === 0) {
-                            //Separar por el = y ver si es una suma de string
+                            let pila = IsOperationString(element, vars);
+                            code.push({asigna: pila});
+
                         } else {
                             code.push({asigna: oper});
                         }
