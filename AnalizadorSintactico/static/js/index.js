@@ -51,7 +51,8 @@ const insertar_codigoP = (codigo) => {
 
 comprobar.addEventListener("click", () => {
     (log.innerHTML = " "), (area_codido_p.innerHTML = "");
-    const cadena = {cadena: textAreaInput.innerText};
+    let contenido = textAreaInput.innerText.replace('^', '**')
+    const cadena = {cadena: contenido};
     const jcadena = JSON.stringify(cadena);
     var url = "/";
     code = [];
