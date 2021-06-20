@@ -24,6 +24,8 @@ app.post("/codigo", (request, response) => {
     const note = request.body;
     Promesas(note.cadena, note.variables);
     optmizar(code);
+    const Traductor = require("./traductor");
+    Traductor(code)
     response.json({codigoP: code});
 });
 //Funciones Para transformar a codigo es lo q estaba en el archivo intermedio.js
@@ -39,22 +41,20 @@ function IsOperationString(element, variables) {
     let aux = element.split("=");
     if (aux.length === 2) {
         //Lo que debemos hacer es ya la operacion de los string ya el resultado
-        let sumas_aux = ['"']
+        let sumas_aux = aux[0] + '=' + '"'
         aux[1].split('+').forEach(element => {
             if (element.charAt(0) === '"' || element.charAt(0) === "'" && element.charAt(element.length - 1) === '"' || element.charAt(element.length - 1) === "'") {
                 const data = element.substring(1, element.length - 1);
-                sumas_aux.push(data);
+                sumas_aux += data;
             } else {
                 //Es una variable
                 let aux_valor = variables[element].value.substring(1, variables[element].value.length - 1)
-                sumas_aux.push(aux_valor)
+                sumas_aux += aux_valor;
 
             }
 
         });
-        sumas_aux.push('"');
-        sumas_aux.push(aux[0]);
-        sumas_aux.push('=');
+        sumas_aux += '"'
         return sumas_aux;
     }
     return false;
@@ -173,25 +173,14 @@ function Promesas(texto, vars) {
                         let oper = data.outputArray;
                         if (oper.length === 0) {
                             let pila = IsOperationString(element, vars);
-                            //Separar por el = y ver si es una suma de string
                             code.push({asigna: pila});
                         } else {
-                            if (data.resultado !== null) {
-                                oper = [aux_operation[0], data.resultado, "="];
-                            } else if (
-                                oper.length === 1 &&
-                                data.resultado == null
-                            ) {
-                                oper = [aux_operation[0], aux_operation[1], "="];
-                            }
-
-                            code.push({asigna: oper});
+                            code.push({asigna: opc[0] + '=' + data.resultado})
                         }
                     }
 
                 } else {
                     opc = element.split("=");
-
                     const resolverPostfijaWhile = require('./while');
                     const r = resolverPostfijaWhile(element);
                     if (r.output_array != null && opc[0] != "") {
@@ -201,7 +190,8 @@ function Promesas(texto, vars) {
                             code.push({asigna: pila});
 
                         } else {
-                            code.push({asigna: oper});
+
+                            code.push({asigna: element});
                         }
                     }
 
